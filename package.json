@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "default": "src/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "parcel ./src/index.html"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.0.0-rc.0"
+    "@parcel/transformer-sass": "^2.0.1",
+    "parcel": "latest"
   },
   "main": "index.js",
   "description": ""
