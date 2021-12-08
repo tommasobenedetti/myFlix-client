@@ -22905,7 +22905,7 @@ class MainView extends _reactDefault.default.Component {
                     _id: 1,
                     Title: 'Inception',
                     Description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.',
-                    ImagePath: imgPath + 'inception.png',
+                    ImagePath: imgPath + 'inception.jpg',
                     Genre: 'Action, Adventure, Sci-fi',
                     Director: 'Christopher Nolan'
                 },
@@ -22913,7 +22913,7 @@ class MainView extends _reactDefault.default.Component {
                     _id: 2,
                     Title: 'The Shawshank Redemption',
                     Description: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.',
-                    ImagePath: imgPath + 'shawshank.jpeg',
+                    ImagePath: imgPath + 'shawshank.jpg',
                     Genre: 'Drama',
                     Director: 'Frank Darabont'
                 },
