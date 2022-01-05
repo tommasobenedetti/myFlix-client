@@ -4,12 +4,14 @@ import axios from 'axios';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { RegisView } from '../registration-view';
 
 import inception from '/img/inception.jpg'
 import shawshank from '/img/shawshank.jpg'
 import gladiator from '/img/gladiator.jpg'
 
-let imgPath = './img';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default class MainView extends React.Component {
 
@@ -23,18 +25,35 @@ export default class MainView extends React.Component {
     }
   }
 
-  componentDidMount(){
-    // code executed right after the component is added to the DOM.
-     axios.get('https://quiet-savannah-08380.herokuapp.com/movies')
-       .then(response => {
-         this.setState({
-           movies: response.data
-         });
-       })
-       .catch(error => {
-         console.log(error);
-       });
-   }
+  componentDidMount() {
+  const token = localStorage.getItem('token');
+  if (token) {
+    this.setState(
+      {
+        user: token
+      },
+      () => {
+        this.getMovies();
+      }
+    );
+  }
+}
+
+// code executed right after the component is added to the DOM.
+getMovies() {
+axios.get('https://quiet-savannah-08380.herokuapp.com/movies', {
+    headers: { Authorization: `Bearer ${this.state.user}` }
+  })
+  .then((response) => {
+    this.setState({
+      movies: response.data
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+}
+// code executed right after the component is added to the DOM.
 
   /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
   setSelectedMovie(newSelectedMovie) {
@@ -64,15 +83,21 @@ export default class MainView extends React.Component {
  // Before the movies have been loaded
  if (movies.length === 0) return <div className="main-view" />;
 
-    return (
-      <div className="main-view">
-        {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-          : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }}/>
-         ))
-        }
-      </div>
+ return (
+ <Row className="main-view justify-content-md-center">
+   {selectedMovie
+     ? (
+       <Col md={8}>
+         <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+       </Col>
+     )
+     : movies.map(movie => (
+       <Col md={3}>
+         <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+       </Col>
+        ))
+      }
+    </Row>
     );
   }
 }
