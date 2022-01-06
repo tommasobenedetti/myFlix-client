@@ -3,28 +3,28 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 export function LoginView(props) {
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
-  e.preventDefault();
-  axios
-    .post('https://quiet-savannah-08380.herokuapp.com/login', {
-      Username: username,
-      Password: password
-    })
-    .then((response) => {
+    e.preventDefault();
+    axios
+      .post('https://quiet-savannah-08380.herokuapp.com/login', {
+        Username: username,
+        Password: password
+      })
+      .then((response) => {
 
-      if (response.status == 200) {
-        localStorage.setItem('token', response.data.token);
-        props.onLoggedIn(response.data.token);
-      } else if (response.status == 400) {
-        // wrong password or username
-      } else {
-        // a different status code was sent
-      }
-    });
-};
+        if (response.status == 200) {
+          localStorage.setItem('token', response.data.token);
+          props.onLoggedIn(response.data.token);
+        } else if (response.status == 400) {
+          // wrong password or username
+        } else {
+          // a different status code was sent
+        }
+      });
+  };
   return (
     <Form>
       <Form.Group controlId="formUsername">
@@ -32,13 +32,13 @@ export function LoginView(props) {
         <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
       </Form.Group>
 
-    <Form.Group controlId="formPassword">
-      <Form.Label>Password:</Form.Label>
+      <Form.Group controlId="formPassword">
+        <Form.Label>Password:</Form.Label>
         <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
       </Form.Group>
-      <Button type="submit" onClick={handleSubmit}>
-      Submit
-      </Button>
+      <button type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
       <a href="">create account</a>
     </Form>
   );
