@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -8,11 +9,10 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post('https://quiet-savannah-08380.herokuapp.com/login', {
-        Username: username,
-        Password: password
-      })
+    axios.post('https://quiet-savannah-08380.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    })
       .then((response) => {
 
         if (response.status == 200) {
