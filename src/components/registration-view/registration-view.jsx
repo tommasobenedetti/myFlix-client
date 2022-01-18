@@ -12,7 +12,7 @@ export function RegisView(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('https://berkdislimyflix.herokuapp.com/users', {
+        axios.post('https://quiet-savannah-08380.herokuapp.com//users', {
             Username: username,
             Password: password,
             Email: email,
