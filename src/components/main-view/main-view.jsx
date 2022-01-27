@@ -1,24 +1,23 @@
 import React from 'react';
 import axios from 'axios';
 
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Form, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { setMovies } from '../../actions/actions';
+import MoviesList from '../movies-list/movies-list';
 
 import { BrowserRouter as Router, Route, Redirect, Link, Routes } from "react-router-dom";
-import { Form, Button } from 'react-bootstrap';
 
-import { LoginView } from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
-import { RegistrationView } from '../registration-view/registration-view';
-import { DirectorView } from "../director-view/director-view";
-import { GenreView } from "../genre-view/genre-view";
-import { ProfileView } from "../profile-view/profile-view";
+import LoginView from '../login-view/login-view';
+import MovieCard from '../movie-card/movie-card';
+import MovieView from '../movie-view/movie-view';
+import RegistrationView from '../registration-view/registration-view';
 
-export default class MainView extends React.Component {
 
+class MainView extends React.Component {
   constructor() {
     super();
-    // Initial state is set to null
+    //Initial state is set to null
     this.state = {
       movies: [],
       selectedMovie: null,
@@ -40,22 +39,19 @@ export default class MainView extends React.Component {
     }
   }
 
-  // code executed right after the component is added to the DOM.
+  /*code executed right after the component is added to the DOM.*/
   getMovies() {
     axios.get('https://quiet-savannah-08380.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${this.state.user}` }
     })
       .then((response) => {
-        // Assign the result to the state
-        this.setState({
-          movies: response.data
-        });
+        this.props.setMovies(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }
-  // code executed right after the component is added to the DOM.
+  /*code executed right after the component is added to the DOM.*/
 
   /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
   setSelectedMovie(newSelectedMovie) {
@@ -79,7 +75,7 @@ export default class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
-  //Log our function
+  /*Log our function*/
   onLoggedOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -87,7 +83,9 @@ export default class MainView extends React.Component {
   }
 
   render() {
-    const { movies, user } = this.state;
+    const { favoriteMovies } = this.state;
+    let { movies } = this.props;
+    let { user } = this.state;
 
     return (
       <Router>
@@ -99,14 +97,10 @@ export default class MainView extends React.Component {
               </Col>
             </Row>)
             if (movies.length === 0) return <div className="main-view" />;
-            return movies.map(m => (
-              <Col md={3} key={m._id}>
-                <MovieCard movie={m} />
-              </Col>
-            ))
+            return <MoviesList movies={movies} />;
           }} />
 
-              //registration page
+             /*registration page*/
           <Route path='/users' render={() => {
             if (user) return <Redirect to="/" />
             return <Col>
@@ -114,7 +108,7 @@ export default class MainView extends React.Component {
             </Col>
           }} />
 
-           //profile page to change info
+          {/*profile page to change info*/}
           <Route path='/users/:ID' render={({ history }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -127,7 +121,7 @@ export default class MainView extends React.Component {
             </Col>
           }} />
 
-          //specific movie
+          {/*specific movie*/}
           <Route path="/movies/:movieId" render={({ match, history }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -138,7 +132,7 @@ export default class MainView extends React.Component {
             </Col>
           }} />
 
-          //specific genre
+          {/*specific genre*/}
           <Route path="/movies/genre/:name" render={({ match }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -150,7 +144,7 @@ export default class MainView extends React.Component {
           }
           } />
 
-          //specific director
+          {/*specific director*/}
           <Route path="/movies/directors/:name" render={({ match }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -166,3 +160,9 @@ export default class MainView extends React.Component {
     );
   }
 }
+
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies })(MainView);
