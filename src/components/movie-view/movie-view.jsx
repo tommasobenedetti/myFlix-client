@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class MovieView extends React.Component {
+export default class MovieView extends React.Component {
 
   keypressCallback(event) {
     console.log(event.key);
