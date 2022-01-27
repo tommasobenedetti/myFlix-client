@@ -5,7 +5,7 @@ import { Form, Button, Card, CardGroup, Container, Row, Col } from 'react-bootst
 import './registration-view.scss';
 import axios from 'axios';
 
-export function RegisView(props) {
+export default function RegistrationView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
