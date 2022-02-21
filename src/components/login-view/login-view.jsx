@@ -15,8 +15,8 @@ export default function LoginView(props) {
       .then((response) => {
 
         if (response.status == 200) {
-          localStorage.setItem('token', response.data.token);
-          props.onLoggedIn(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          props.onLoggedIn(response.data);
         } else if (response.status == 400) {
           // wrong password or username
         } else {
