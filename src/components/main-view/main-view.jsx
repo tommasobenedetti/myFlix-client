@@ -40,7 +40,7 @@ class MainView extends React.Component {
   }
 
   /*code executed right after the component is added to the DOM.*/
-  getMovies() {
+  getMovies(token) {
     axios.get('https://quiet-savannah-08380.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${this.state.user}` }
     })
@@ -89,7 +89,7 @@ class MainView extends React.Component {
 
     return (
       <Router>
-
+        <div className="main-view, justify-content-md-center"></div>
         <Route exact path="/" render={() => {
           if (!user) return (<Row>
             <Col>

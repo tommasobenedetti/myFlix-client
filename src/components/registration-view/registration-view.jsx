@@ -9,6 +9,7 @@ export default function RegistrationView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,6 +17,7 @@ export default function RegistrationView(props) {
             Username: username,
             Password: password,
             Email: email,
+            Birthday: birthday,
 
         })
             .then(response => {

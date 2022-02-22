@@ -11,6 +11,7 @@ export default class MovieCard extends React.Component {
 
     return (
       <Card>
+        <Card className="text-center" style={{ width: '15rem' }}></Card>
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
