@@ -7,7 +7,7 @@ export default class DirectorView extends React.Component {
     const { director, onBackClick } = this.props;
     console.log(director);
     return (
-      <Card className="text-center">
+      <Card className="justify-content-md-center">
         <Card.Header as="h5">Director Overview</Card.Header>
         <Card.Body>
           <Card.Title>Director: {director.Name}</Card.Title>
