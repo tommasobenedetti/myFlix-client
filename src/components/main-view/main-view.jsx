@@ -5,9 +5,14 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { setMovies } from "../../actions/actions";
 import MoviesList from "../movies-list/movies-list";
-import "./main-view.scss";
 
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Link,
+  Routes,
+} from "react-router-dom";
 
 import LoginView from "../login-view/login-view";
 import MovieView from "../movie-view/movie-view";
@@ -36,9 +41,10 @@ class MainView extends React.Component {
 
   /*code executed right after the component is added to the DOM.*/
   getMovies(token) {
-    axios.get("https://quiet-savannah-08380.herokuapp.com/movies", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    axios
+      .get("https://quiet-savannah-08380.herokuapp.com/movies", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         this.props.setMovies(response.data);
       })
@@ -70,7 +76,7 @@ class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
-  /*Log out function*/
+  /*Log our function*/
   onLoggedOut() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");

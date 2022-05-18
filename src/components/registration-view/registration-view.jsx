@@ -71,7 +71,7 @@ export default function RegistrationView(props) {
                                             placeholder="Enter your email address" />
                                     </Form.Group>
 
-                                    <Button variant="outline-secondary" type="submit" onClick={handleSubmit}>
+                                    <Button variant="outline-light" type="submit" onClick={handleSubmit}>
                                         Register
                                     </Button>
                                 </Form>

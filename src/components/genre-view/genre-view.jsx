@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, Container } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import "./genre-view.scss";
 
 export default class GenreView extends React.Component {
@@ -8,23 +8,21 @@ export default class GenreView extends React.Component {
 
     console.log(genre);
     return (
-      <Container fluid>
-        <Card className="text-center">
-          <Card.Header as="h5">Genre Overview</Card.Header>
-          <Card.Body>
-            <Card.Title>Genre: {genre.Name}</Card.Title>
-            <Card.Text>{genre.Description}</Card.Text>
-            <Button
-              variant="outline-dark"
-              onClick={() => {
-                onBackClick(null);
-              }}
-            >
-              Back
-            </Button>
-          </Card.Body>
-        </Card>
-      </Container>
+      <Card className="text-center">
+        <Card.Header as="h5">Genre Overview</Card.Header>
+        <Card.Body>
+          <Card.Title>Genre: {genre.Name}</Card.Title>
+          <Card.Text>{genre.Description}</Card.Text>
+          <Button
+            variant="outline-dark"
+            onClick={() => {
+              onBackClick(null);
+            }}
+          >
+            Back
+          </Button>
+        </Card.Body>
+      </Card>
     );
   }
 }
