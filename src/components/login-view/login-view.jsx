@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export default function LoginView(props) {
@@ -26,32 +26,26 @@ export default function LoginView(props) {
       });
   };
   return (
-    <Container>
-      <Row>
-        <Col>
-          <Card style={{ marginTop: 100, marginBottom: 50, width: '30' }}>
-            <Card.Body>
-              <Card.Title style={{ textAlign: "center", fontSize: "17px" }}>
-                <Form className='login-border'>
-                  <Form.Group controlId="formUsername">
-                    <Form.Label>Username:</Form.Label>
-                    <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} />
-                  </Form.Group>
+    <Form>
+      <Form.Group controlId="formUsername">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
+          type="text"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </Form.Group>
 
-                  <Form.Group controlId="formPassword">
-                    <Form.Label>Password:</Form.Label>
-                    <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
-                  </Form.Group>
-                  <Button variant="primary" type="submit" onClick={handleSubmit}>
-                    Submit
-                  </Button>
-                  <a href="">create account</a>
-                </Form>
-              </Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+      <Form.Group controlId="formPassword">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </Form.Group>
+      <button type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
+      <Link to="/users">create account</Link>
+    </Form>
   );
 }
