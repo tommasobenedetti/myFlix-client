@@ -31,7 +31,7 @@ function MoviesList(props) {
         <VisibilityFilterInput visibilityFilter={visibilityFilter} />
       </Col>
       <Link to={`/profile/${user.user._id}`}>
-        <Button variant="outline-dark">My profile</Button>
+        <Button variant="light">My profile</Button>
       </Link>
       {filteredMovies.map((m) => (
         <Col md={3} key={m._id}>

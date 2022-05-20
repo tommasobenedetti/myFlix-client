@@ -129,7 +129,7 @@ class MainView extends React.Component {
               );
             if (movies.length === 0) return <div className="main-view" />;
             return (
-              <Col md={12}>
+              <Col md={8}>
                 <ProfileView
                   user={user}
                   setUser={(user) => this.setUser(user)}
