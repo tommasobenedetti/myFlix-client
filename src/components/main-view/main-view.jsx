@@ -119,7 +119,7 @@ class MainView extends React.Component {
 
         {/*profile page to change info*/}
         <Route
-          path="/profile/:ID"
+          path="/profile"
           render={({ history }) => {
             if (!user)
               return (
@@ -129,6 +129,7 @@ class MainView extends React.Component {
               );
             if (movies.length === 0) return <div className="main-view" />;
             return (
+
               <Col md={8}>
                 <ProfileView
                   user={user}
@@ -138,6 +139,7 @@ class MainView extends React.Component {
                   onBackClick={() => history.goBack()}
                 />
               </Col>
+
             );
           }}
         />

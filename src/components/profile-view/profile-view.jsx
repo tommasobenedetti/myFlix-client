@@ -12,7 +12,7 @@ import UserInfo from './user-info'
 
 
 
-export class ProfileView extends React.Component {
+export default class ProfileView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -137,9 +137,6 @@ export class ProfileView extends React.Component {
     const { FavoriteMovies, username, email, birthday } = this.state;
     let FavoriteMoviesArray = [];
 
-    if (!username) {
-      return null;
-    }
 
     return (
       <div className="profile_view">
@@ -244,3 +241,4 @@ ProfileView.propTypes = {
   ),
   onBackClick: PropTypes.func.isRequired
 };
+

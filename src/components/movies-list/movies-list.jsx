@@ -1,6 +1,5 @@
 import React from "react";
-import Col from "react-bootstrap/Col";
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -33,11 +32,13 @@ function MoviesList(props) {
       <Link to={`/profile/${user.user._id}`}>
         <Button variant="light">My profile</Button>
       </Link>
-      {filteredMovies.map((m) => (
-        <Col md={3} key={m._id}>
-          <MovieCard movie={m} />
-        </Col>
-      ))}
+      <Row>
+        {filteredMovies.map((m) => (
+          <Col md={3} key={m._id}>
+            <MovieCard movie={m} />
+          </Col>
+        ))}
+      </Row>
     </>
   );
 }
