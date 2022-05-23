@@ -12,7 +12,7 @@ import UserInfo from './user-info'
 
 
 
-export default class ProfileView extends React.Component {
+export class ProfileView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -52,6 +52,7 @@ export default class ProfileView extends React.Component {
     e.preventDefault();
     const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
+    console.log(username);
 
     axios
       .put(
@@ -137,6 +138,9 @@ export default class ProfileView extends React.Component {
     const { FavoriteMovies, username, email, birthday } = this.state;
     let FavoriteMoviesArray = [];
 
+    if (!username) {
+      return null;
+    }
 
     return (
       <div className="profile_view">
@@ -165,7 +169,7 @@ export default class ProfileView extends React.Component {
 
         <Card bg="secondary" text="light" border="light">
           <Card.Body>
-            <Card.Title className="text-center">Update Profile Details</Card.Title>
+            <Card.Title className="text-center">Update Profile Details test</Card.Title>
             <br></br>
             <Form noValidate validated={this.state.validated}>
 
@@ -195,8 +199,8 @@ export default class ProfileView extends React.Component {
               </Form.Group>
 
               <br></br>
-              <Button variant="light" style={{ color: "white" }} type="submit" onClick={this.updateUserDetails}>
-                Update Details
+              <Button variant="light" style={{ color: "white" }} type="submit" onClick={this.editUser}>
+                Update Details to test
               </Button>
 
               <Button onClick={() => onBackClick(null)} variant="light" style={{ color: "white" }}>Back</Button>
@@ -241,4 +245,3 @@ ProfileView.propTypes = {
   ),
   onBackClick: PropTypes.func.isRequired
 };
-
