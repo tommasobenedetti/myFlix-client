@@ -19,20 +19,20 @@ export function RegistrationView(props) {
         if (!username) {
             setUsernameErr('Username Required');
             isReq = false;
-        } else if (Username.length < 6) {
-            setUsernameErr('Username must be 6 characters long');
+        } else if (username.length < 5) {
+            setUsernameErr('Username must be 5 characters long');
             isReq = false;
         }
         if (!password) {
             setPasswordErr('Password Required');
             isReq = false;
-        } else if (Password.length < 8) {
+        } else if (password.length < 8) {
             setPasswordErr('Password must be 8 characters long');
             isReq = false;
         }
         if (!email) {
             setEmailErr('Please enter a valid email')
-        } else if (Email.indexOf('@') === -1) {
+        } else if (email.indexOf('@') === -1) {
             setEmailErr('Please enter a valid email')
             isReq = false;
         }
@@ -46,9 +46,9 @@ export function RegistrationView(props) {
         console.log(username, password)
         if (isReq) {
             axios.post('https://quiet-savannah-08380.herokuapp.com/users', {
-                Username: Username,
-                password: Password,
-                Email: Email
+                Username: username,
+                Password: password,
+                Email: email
             })
                 .then(response => {
                     const data = response.data;
