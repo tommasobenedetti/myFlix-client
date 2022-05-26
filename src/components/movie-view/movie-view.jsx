@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
-export default class MovieView extends React.Component {
+export class MovieView extends React.Component {
   keypressCallback(event) {
     console.log(event.key);
   }

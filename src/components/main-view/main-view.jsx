@@ -116,7 +116,7 @@ class MainView extends React.Component {
 
         <Row >
 
-          <Route exact path="/" render={() => {
+          <Route exact path="/" render={({ history }) => {
 
             if (!user) return (
               <Col>
@@ -125,7 +125,7 @@ class MainView extends React.Component {
             )
             if (movies.length === 0) return <div className="main-view" />;
 
-            return <MoviesList movies={movies} />
+            return <MoviesList movies={movies} onBackClick={() => history.goBack()} />
 
           }} />
 

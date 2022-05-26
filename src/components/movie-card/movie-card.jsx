@@ -20,7 +20,6 @@ export default class MovieCard extends React.Component {
             <Button
               variant="outline-dark"
               onClick={() => {
-                onBackClick(null);
               }}
             >Open</Button>
           </Link>
