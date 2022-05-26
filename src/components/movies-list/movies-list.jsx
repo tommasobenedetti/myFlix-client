@@ -12,9 +12,9 @@ const mapStateToProps = (state) => {
 };
 
 function MoviesList(props) {
-  const { movies, visibilityFilter, user } = props;
+  const { movies, visibilityFilter } = props;
   let filteredMovies = movies;
-  console.log(user);
+
 
   if (visibilityFilter !== "") {
     filteredMovies = movies.filter((m) =>
@@ -29,7 +29,7 @@ function MoviesList(props) {
       <Col md={12} style={{ margin: "1em" }}>
         <VisibilityFilterInput visibilityFilter={visibilityFilter} />
       </Col>
-      <Link to={`/profile/${user.user._id}`}>
+      <Link to={`/profile`}>
         <Button variant="light">My profile</Button>
       </Link>
       <Row>
