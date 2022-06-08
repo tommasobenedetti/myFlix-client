@@ -33,6 +33,15 @@ This project represents the client-side of my myFlix application.
 - The application must contain a mix of class components and function components
 - The application may be hosted online
 
-## To run the Project
+## Get Started
 
-`$npm run dev`
+- Clone the [project](https://github.com/tommasobenedetti/myFlix-client.git)
+- Install all dependencies mentioned in package.json
+- cd to the project directory
+- Run it by:
+
+`
+$npm run dev
+`
+
+Note: Please make sure you install parcel v2!
