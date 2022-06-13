@@ -29,9 +29,13 @@ function MoviesList(props) {
       <Col md={12} style={{ margin: "1em" }}>
         <VisibilityFilterInput visibilityFilter={visibilityFilter} />
       </Col>
+<<<<<<< Updated upstream
       <Link to={`/profile/${user.user._id}`}>
         <Button variant="light">My profile</Button>
       </Link>
+=======
+
+>>>>>>> Stashed changes
       <Row>
         {filteredMovies.map((m) => (
           <Col md={3} key={m._id}>
