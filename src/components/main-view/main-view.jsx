@@ -144,16 +144,11 @@ class MainView extends React.Component {
           }}
         />
 
-<<<<<<< Updated upstream
         {/*specific movie*/}
         <Route
           path="/movies/:movieId"
           render={({ match, history }) => {
             if (!user)
-=======
-          <Route path="/users/:Username" render={({ history }) => {
-            if (!user) {
->>>>>>> Stashed changes
               return (
                 <Col>
                   <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />

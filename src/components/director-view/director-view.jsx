@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 
 export function DirectorView(props) {
-  const { director, onBackClick } = props;
+  const { director } = props;
   console.log(director);
   return (
     <div className="director-font">
@@ -26,7 +26,7 @@ export function DirectorView(props) {
       </div>
       <br></br>
       <Link to={`/`}>
-        <Button variant="outline-dark" onClick={() => onBackClick(null)}>Back</Button>
+        <Button className='returnButton' variant='dark'>Return to the Movie List</Button>
         <br></br><br></br>
       </Link>
     </div >
