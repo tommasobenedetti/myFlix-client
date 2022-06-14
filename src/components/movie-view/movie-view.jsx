@@ -17,38 +17,6 @@ export default class MovieView extends React.Component {
     document.removeEventListener("keypress", this.keypressCallback);
   }
 
-  /* render() {
-    const { movie, onBackClick } = this.props;
-
-    let ImageURL = movie.ImageURL ? movie.ImageURL : movie.ImagePath;
-
-     return (
-      <Card className="text-center" style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={movie.ImageURL} />
-        <Card.Body>
-          <Card.Title>Movie: {movie.Title}</Card.Title>
-          <Card.Text>Description: {movie.Description}</Card.Text>
-          <Link to={`/directors/${movie.Director.Name}`}>
-            <Button variant="outline-dark">Director</Button>{" "}
-          </Link>
-          <Link to={`/genre/${movie.Genre.Name}`}>
-            <Button variant="outline-dark">Genre</Button>{" "}
-          </Link>
-          <Button
-            variant="outline-dark"
-            onClick={() => {
-              onBackClick(null);
-            }}
-          >
-            Back
-          </Button>
-        </Card.Body>
-      </Card>
-    );
-  }
-}
-*/
-
   render() {
     const { movie, onBackClick } = this.props;
 

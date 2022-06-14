@@ -32,6 +32,7 @@ function MoviesList(props) {
       <Link to={`/profile/${user.user._id}`}>
         <Button variant="light">My profile</Button>
       </Link>
+      <br></br><br></br>
       <Row>
         {filteredMovies.map((m) => (
           <Col md={3} key={m._id}>
