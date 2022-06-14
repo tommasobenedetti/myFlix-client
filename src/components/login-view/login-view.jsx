@@ -44,7 +44,12 @@ export default function LoginView(props) {
                   <Button variant="primary" type="submit" onClick={handleSubmit}>
                     Submit
                   </Button>
-                  <a href="">create account</a>
+                  <Link to={'/register'}>
+                    <Button className="loginButtons" variant="primary">
+                      Register
+                    </Button>
+                  </Link>
+                  <br></br> <br></br>
                 </Form>
               </Card.Title>
             </Card.Body>

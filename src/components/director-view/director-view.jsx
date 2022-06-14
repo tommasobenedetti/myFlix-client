@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
 
-export function DirectorView(props) {
+export default function DirectorView(props) {
   const { director, onBackClick } = props;
   console.log(director);
   return (

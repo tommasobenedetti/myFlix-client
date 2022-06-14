@@ -32,7 +32,7 @@ export default class ProfileView extends React.Component {
   }
 
   getUserDetails(token) {
-    const username = localStorage.getItem('user');
+    const username = localStorage.getItem('Username');
     axios.get(`https://quiet-savannah-08380.herokuapp.com/users/${username}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(response => {
@@ -50,12 +50,12 @@ export default class ProfileView extends React.Component {
 
   editUser = (e) => {
     e.preventDefault();
-    const username = localStorage.getItem('user');
+    const username = localStorage.getItem('Username');
     const token = localStorage.getItem('token');
 
     axios
       .put(
-        `https://quiet-savannah-08380.herokuapp.com/users/${username}`,
+        `https://quiet-savannah-08380.herokuapp.com/users/${Username}`,
         {
           username: this.state.username,
           password: this.state.password,
@@ -154,7 +154,7 @@ export default class ProfileView extends React.Component {
           <Card.Body>
 
 
-            <Card.Title className="text-center">Profile of {this.state.userDetails.username}</Card.Title>
+            <Card.Title className="text-center">Profile of {this.state.userDetails.Username}</Card.Title>
             <Card.Text><span className="profile_heading"></span>{this.state.userDetails.username}</Card.Text>
 
             {this.state.userDetails.Birthdate && (

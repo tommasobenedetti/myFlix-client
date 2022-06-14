@@ -105,17 +105,13 @@ class MainView extends React.Component {
         />
 
         {/* /*registration page*/}
-        <Route
-          path="/users"
-          render={() => {
-            if (user) return <Redirect to="/" />;
-            return (
-              <Col>
-                <RegistrationView />
-              </Col>
-            );
-          }}
-        />
+        <Route path="/register" render={() => {
+          if (user) return <Redirect to="/" />
+          return (<Col>
+            <RegistrationView />
+          </Col>
+          )
+        }} />
 
         {/*profile page to change info*/}
         <Route
@@ -143,17 +139,11 @@ class MainView extends React.Component {
             );
           }}
         />
-
-<<<<<<< Updated upstream
         {/*specific movie*/}
         <Route
           path="/movies/:movieId"
           render={({ match, history }) => {
             if (!user)
-=======
-          <Route path="/users/:Username" render={({ history }) => {
-            if (!user) {
->>>>>>> Stashed changes
               return (
                 <Col>
                   <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
