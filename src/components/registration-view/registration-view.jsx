@@ -19,8 +19,8 @@ export default function RegistrationView(props) {
         if (!username) {
             setUsernameErr('Username Required');
             isReq = false;
-        } else if (username.length < 5) {
-            setUsernameErr('Username must be 5 characters long');
+        } else if (username.length < 8) {
+            setUsernameErr('Username must be 8 characters long');
             isReq = false;
         }
         if (!password) {
