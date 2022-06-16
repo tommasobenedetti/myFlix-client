@@ -41,7 +41,7 @@ class MainView extends React.Component {
     }
   }
 
-
+  /*code executed right after the component is added to the DOM.*/
   getMovies(token) {
     axios.get("https://quiet-savannah-08380.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
@@ -56,6 +56,7 @@ class MainView extends React.Component {
       });
   }
 
+  /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
   setSelectedMovie(movie) {
     this.setState({
       selectedMovie: movie
@@ -75,6 +76,7 @@ class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+  /*Log out function*/
   onLoggedOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -103,7 +105,7 @@ class MainView extends React.Component {
             <Navbar.Collapse className="justify-content-end">
               <Link to={`/users/${user}`} className="mr-2">
                 <br></br><br></br>
-                <Button variant="light" style={{ color: "white" }}>{user}'s Profile</Button>
+                <Button variant="light" style={{ color: "white" }}>My Profile</Button>
               </Link>
               <br></br>
               <Button className="logout" onClick={() => this.onLoggedOut()} variant="light" style={{ color: "white" }}>Logout</Button>
