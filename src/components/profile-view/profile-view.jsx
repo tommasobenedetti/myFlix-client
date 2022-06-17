@@ -18,9 +18,9 @@ export default class ProfileView extends React.Component {
 
     this.state = {
       userDetails: [],
-      username: null,
-      password: null,
-      email: null,
+      Username: null,
+      Password: null,
+      Email: null,
       FavoriteMovies: [],
     };
 
@@ -32,15 +32,15 @@ export default class ProfileView extends React.Component {
   }
 
   getUserDetails(token) {
-    const username = localStorage.getItem('Username');
-    axios.get(`https://quiet-savannah-08380.herokuapp.com/users/${username}`, {
+    const Username = localStorage.getItem('user');
+    axios.get(`https://quiet-savannah-08380.herokuapp.com/users/${Username}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(response => {
       this.setState({
         // Store the details in the appropriate state variables (separating the FavoriteMovies array for ease of use)
-        username: response.data.username,
-        password: response.data.password,
-        email: response.data.email,
+        Username: response.data.Username,
+        Password: response.data.Password,
+        Email: response.data.Email,
         FavoriteMovies: response.data.FavoriteMovies,
       });
     }).catch(function (error) {
@@ -50,16 +50,17 @@ export default class ProfileView extends React.Component {
 
   editUser = (e) => {
     e.preventDefault();
-    const username = localStorage.getItem('Username');
+    const Username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
 
     axios
       .put(
         `https://quiet-savannah-08380.herokuapp.com/users/${Username}`,
         {
-          username: this.state.username,
-          password: this.state.password,
-          email: this.state.email,
+          Username: this.state.Username,
+          Password: this.state.Password,
+          Email: this.state.Email,
+          Birthday: this.state.Birthday
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -67,12 +68,12 @@ export default class ProfileView extends React.Component {
       )
       .then((response) => {
         this.setState({
-          username: response.data.username,
-          password: response.data.password,
-          email: response.data.email,
+          Username: response.data.Username,
+          Password: response.data.Password,
+          Email: response.data.Email,
         });
 
-        localStorage.setItem('user', this.state.username);
+        localStorage.setItem('user', this.state.Username);
         alert("Profile updated");
         window.open('/profile', '_self');
       })
@@ -84,15 +85,15 @@ export default class ProfileView extends React.Component {
 
   removeFavouriteMovie(_id) {
     const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
+    const Username = localStorage.getItem('user');
 
     console.log(_id, '_id')
-    axios.delete(`https://quiet-savannah-08380.herokuapp.com/user/favorites/delete/${user}/movies/${movies._id}`, {
+    axios.delete(`https://quiet-savannah-08380.herokuapp.com/users/${Username}/movies/${movie._id}`, {
 
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => {
-        alert('Favorite was removed')
+        alert('Movie was removed')
         window.location.reload();
 
 
@@ -102,13 +103,14 @@ export default class ProfileView extends React.Component {
         console.log(error);
       })
   }
+
   deleteUser() {
 
     const answer = window.confirm("Are you sure you want to delete your account?");
     if (answer) {
       const token = localStorage.getItem("token");
-      const user = localStorage.getItem("user");
-      axios.delete(`https://quiet-savannah-08380.herokuapp.com/user/delete/${user}`,
+      const Username = localStorage.getItem("user");
+      axios.delete(`https://quiet-savannah-08380.herokuapp.com/users/${Username}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
         .then(() => {
@@ -134,7 +136,7 @@ export default class ProfileView extends React.Component {
 
   render() {
     const { movies, onBackClick } = this.props;
-    const { FavoriteMovies, username, email, birthday } = this.state;
+    const { FavoriteMovies, Username, Email, Birthday } = this.state;
     let FavoriteMoviesArray = [];
 
 
@@ -155,10 +157,10 @@ export default class ProfileView extends React.Component {
 
 
             <Card.Title className="text-center">Profile of {this.state.userDetails.Username}</Card.Title>
-            <Card.Text><span className="profile_heading"></span>{this.state.userDetails.username}</Card.Text>
+            <Card.Text><span className="profile_heading"></span>{this.state.userDetails.Username}</Card.Text>
 
             {this.state.userDetails.Birthdate && (
-              <Card.Text><span className="profile_heading">Date of Birth: </span>{Intl.DateTimeFormat().format(new Date(this.state.userDetails.birthday))}</Card.Text>
+              <Card.Text><span className="profile_heading">Date of Birth: </span>{Intl.DateTimeFormat().format(new Date(this.state.userDetails.Birthday))}</Card.Text>
             )}
           </Card.Body>
         </Card>

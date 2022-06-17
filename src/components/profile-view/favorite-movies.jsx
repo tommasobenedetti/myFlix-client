@@ -16,7 +16,7 @@ function FavoriteMovies({ favoriteMovieList }) {
             <Row>
                 {favoriteMovieList.map((ImagePath, Title, _id) => {
                     return (
-                        <Col xs={12} md={6} lg={3} key={movies._id}>
+                        <Col xs={12} md={6} lg={3} key={movie._id}>
                             <Figure>
                                 <Link to={`/movies/${_id}`}>
                                     <Figure.Image>
