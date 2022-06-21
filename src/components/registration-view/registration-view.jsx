@@ -8,10 +8,14 @@ export default function RegistrationView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
+
 
     const [usernameErr, setUsernameErr] = useState('');
     const [passwordErr, setPasswordErr] = useState('');
     const [emailErr, setEmailErr] = useState('');
+    const [birthdayErr, setBirthdayErr] = useState('');
+
 
     const validate = () => {
 
@@ -48,7 +52,9 @@ export default function RegistrationView(props) {
             axios.post('https://quiet-savannah-08380.herokuapp.com/users', {
                 Username: username,
                 Password: password,
-                Email: email
+                Email: email,
+                Birthday: birthday
+
             })
                 .then(response => {
                     const data = response.data;
@@ -105,6 +111,15 @@ export default function RegistrationView(props) {
                                                 required
                                                 placeholder="Enter your email" />
                                             {emailErr && <p>{emailErr}</p>}
+                                        </Form.Group>
+                                        <Form.Group className="mb-3">
+                                            <Form.Label>Date of Birth:</Form.Label>
+                                            <Form.Control
+                                                type='date'
+                                                value={birthday}
+                                                onChange={e => setBirthday(e.target.value)}
+                                                placeholder="Enter your birthday"
+                                            />
                                         </Form.Group>
                                         <br></br>
                                         <Button variant="light" style={{ color: "white" }} type="submit"
