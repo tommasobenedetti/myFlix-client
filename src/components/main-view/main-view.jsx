@@ -67,7 +67,7 @@ class MainView extends React.Component {
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
-      user: authData,
+      user: authData.user.Username
     })
 
 
@@ -105,7 +105,7 @@ class MainView extends React.Component {
             <Navbar.Collapse className="justify-content-end">
               <Link to={`/users/${user}`} className="mr-2">
                 <br></br><br></br>
-                <Button variant="light" style={{ color: "white" }}>My Profile</Button>
+                <Button variant="light" style={{ color: "white" }}>{user}'s Profile</Button>
               </Link>
               <br></br>
               <Button className="logout" onClick={() => this.onLoggedOut()} variant="light" style={{ color: "white" }}>Logout</Button>
@@ -204,7 +204,7 @@ class MainView extends React.Component {
           }
           } />
 
-          <Route path="/genre/:name" render={({ match, history }) => {
+          <Route path="/genres/:name" render={({ match, history }) => {
             if (!user) return (<Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
