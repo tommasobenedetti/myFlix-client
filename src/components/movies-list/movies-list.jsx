@@ -15,32 +15,23 @@ function MoviesList(props) {
   const { movies, visibilityFilter } = props;
   let filteredMovies = movies;
 
-
-  if (visibilityFilter !== "") {
-    filteredMovies = movies.filter((m) =>
-      m.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
-    );
+  if (visibilityFilter !== '') {
+    filteredMovies = movies.filter(m => m.Title.toLowerCase().includes(visibilityFilter.toLowerCase()));
   }
+  if (!movies) return <div className="main-view"
+  />
 
-  if (!movies) return <div className="main-view" />;
-
-  return (
-    <>
-      <Col md={12} style={{ margin: "1em" }}>
-        <VisibilityFilterInput visibilityFilter={visibilityFilter} />
+  return <>
+    <Col md={12} style={{ margin: "1em " }}>
+      <VisibilityFilterInput visibilityFilter={visibilityFilter} />
+    </Col>
+    {filteredMovies.map(m => (
+      <Col md={3} key={m._id}>
+        <MovieCard movie={m} />
       </Col>
-      <Link to={`/profile`}>
-        <Button variant="light">My profile</Button>
-      </Link>
-      <Row>
-        {filteredMovies.map((m) => (
-          <Col md={3} key={m._id}>
-            <MovieCard movie={m} />
-          </Col>
-        ))}
-      </Row>
-    </>
-  );
+    ))}
+
+  </>
 }
 
 export default connect(mapStateToProps)(MoviesList);

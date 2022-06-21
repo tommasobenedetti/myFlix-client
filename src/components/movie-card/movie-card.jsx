@@ -11,23 +11,38 @@ export default class MovieCard extends React.Component {
 
     return (
       <Card>
-        <Card className="text-center" style={{ width: '15rem' }}></Card>
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>
-          <Card.Title>{movie.Title}</Card.Title>
-          <Card.Text>{movie.Description}</Card.Text>
+          <Card.Title className="movie-title">{movie.Title}</Card.Title>
+          <Card.Text className="movie-description">{movie.Description}</Card.Text>
           <Link to={`/movies/${movie._id}`}>
-            <Button
-              variant="outline-dark"
-              onClick={() => {
-              }}
-            >Open</Button>
+            <Button variant="link">Open</Button>
           </Link>
         </Card.Body>
       </Card>
     );
   }
 }
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Description: PropTypes.string
+    }),
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Bio: PropTypes.string.isRequired,
+      Birthyear: PropTypes.string,
+      Deathyear: PropTypes.string
+    }),
+    Featured: PropTypes.bool,
+    ImagePath: PropTypes.string.isRequired
+  }).isRequired,
+  onBackClick: PropTypes.func
+};
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({

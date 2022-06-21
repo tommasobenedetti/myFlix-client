@@ -1,8 +1,11 @@
 {
   "name": "myflix-client",
   "version": "1.0.0",
-  "description": "",
+  "description": "Client-side of movie_api app",
   "default": "src/index.html",
+  "alias": {
+    "process": false
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel ./src/index.html --no-cache"
@@ -10,8 +13,6 @@
   "dependencies": {
     "axios": "^0.24.0",
     "global-package-version": "^1.1.0",
-    "parcel": "^2.0.0-rc.0",
-    "parcel-bundler": "^1.12.5",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.0",

@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -10,18 +8,18 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { setMovies, setUser } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
-import LoginView from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
-import { ProfileView } from '../profile-view/profile-view';
-import { FavoriteMovies } from '../profile-view/favorite-movies';
+import LoginView from "../login-view/login-view";
+import MovieView from '../movie-view/movie-view';
+import ProfileView from '../profile-view/profile-view';
+import FavoriteMovies from '../profile-view/favorite-movies';
 import { UpdateUser } from '../profile-view/update-user';
 import { UserInfo } from '../profile-view/user-info';
-import { GenreView } from '../genre-view/genre-view';
-import { DirectorView } from '../director-view/director-view';
-import { RegistrationView } from '../registration-view/registration-view';
+import GenreView from '../genre-view/genre-view';
+import DirectorView from '../director-view/director-view';
+import RegistrationView from '../registration-view/registration-view';
 import { Link } from 'react-router-dom';
 import { Navbar, Button, Col, Row } from 'react-bootstrap';
+
 
 class MainView extends React.Component {
 
@@ -43,9 +41,9 @@ class MainView extends React.Component {
     }
   }
 
-
+  /*code executed right after the component is added to the DOM.*/
   getMovies(token) {
-    axios.get('https://quiet-savannah-08380.herokuapp.com/movies', {
+    axios.get("https://quiet-savannah-08380.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
@@ -58,6 +56,7 @@ class MainView extends React.Component {
       });
   }
 
+  /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
   setSelectedMovie(movie) {
     this.setState({
       selectedMovie: movie
@@ -77,6 +76,7 @@ class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+  /*Log out function*/
   onLoggedOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -116,7 +116,7 @@ class MainView extends React.Component {
 
         <Row >
 
-          <Route exact path="/" render={({ history }) => {
+          <Route exact path="/" render={() => {
 
             if (!user) return (
               <Col>
@@ -125,7 +125,7 @@ class MainView extends React.Component {
             )
             if (movies.length === 0) return <div className="main-view" />;
 
-            return <MoviesList movies={movies} onBackClick={() => history.goBack()} />
+            return <MoviesList movies={movies} />
 
           }} />
 

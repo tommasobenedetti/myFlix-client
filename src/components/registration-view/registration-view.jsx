@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Link, Router } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, CardGroup, Card } from 'react-bootstrap';
 
-export function RegistrationView(props) {
+export default function RegistrationView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -19,8 +19,8 @@ export function RegistrationView(props) {
         if (!username) {
             setUsernameErr('Username Required');
             isReq = false;
-        } else if (username.length < 5) {
-            setUsernameErr('Username must be 5 characters long');
+        } else if (username.length < 8) {
+            setUsernameErr('Username must be 8 characters long');
             isReq = false;
         }
         if (!password) {

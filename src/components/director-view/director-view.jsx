@@ -1,34 +1,36 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Container, Card } from 'react-bootstrap';
 
 
-export function DirectorView(props) {
-  const { director } = props;
+export default function DirectorView(props) {
+  const { director, onBackClick } = props;
   console.log(director);
   return (
-    <div className="director-font">
-      <div className="director-view">
-        <div className="director-name">
-          <span className="label">Name: </span>
-          <span className="value">{director.Name}</span>
+    <Container fluid>
+      <Card className="text-center">
+        <Card.Header as="h5">Director Overview</Card.Header>
+        <Card.Body>
+          <Card.Title className="director-name">
+            <span className="label"> </span>
+            <span className="value">{director.Name}</span>
 
-        </div>
-        <div className="director-bio">
-          <span className="label">Biography: </span>
-          <span className="value">{director.Bio}</span>
-        </div>
-        <div className="director-birthyear">
-          <span className="label">Birthday: </span>
-          <span className="value">{director.Birth}</span>
-        </div>
-      </div>
-      <br></br>
-      <Link to={`/`}>
-        <Button className='returnButton' variant='dark'>Return to the Movie List</Button>
-        <br></br><br></br>
-      </Link>
-    </div >
+          </Card.Title>
+          <Card.Text className="director-bio">
+            <span className="label">Biography: </span>
+            <span className="value">{director.Bio}</span>
+          </Card.Text>
+          <Card.Text className="director-birthyear">
+            <span className="label">Birthday: </span>
+            <span className="value">{director.Birth}</span>
+          </Card.Text>
+
+
+
+          <Button variant="outline-dark" onClick={() => onBackClick(null)}>Back</Button>
+        </Card.Body>
+      </Card >
+    </Container>
   )
 }
