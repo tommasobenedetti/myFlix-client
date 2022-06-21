@@ -88,7 +88,7 @@ export default class ProfileView extends React.Component {
     const Username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
 
-    axios.delete(`https://quiet-savannah-08380.herokuapp.com/users/${Username}/movies/${movie._id}`,
+    axios.delete(`https://quiet-savannah-08380.herokuapp.com/users/${Username}/FavoriteMovies/${movies._id}`,
       {
         headers: { Authorization: `Bearer ${token}` }
       }
@@ -260,6 +260,7 @@ export default class ProfileView extends React.Component {
               </Card.Body>
             </Card>
           </Col>
+          <Button onClick={() => onBackClick(null)} variant="light" style={{ color: "white" }}>Back</Button>
         </Row>
       </Container>
     )
