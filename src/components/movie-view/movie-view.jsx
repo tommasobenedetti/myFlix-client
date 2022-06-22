@@ -8,10 +8,10 @@ import FavoriteMovies from '../profile-view/favorite-movies';
 export default class MovieView extends React.Component {
 
 
-  addToFavoriteList(movies) {
+  addToFavoriteList(movieId) {
     const Username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    axios.post(`https://https://quiet-savannah-08380.herokuapp.com/users/${Username}/ /${movies._id}`,
+    axios.post(`https://quiet-savannah-08380.herokuapp.com/users/${Username}/${movieId}`,
       {},
       {
         headers: { Authorization: `Bearer ${token}` }
