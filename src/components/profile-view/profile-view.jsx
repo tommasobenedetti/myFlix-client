@@ -245,7 +245,7 @@ export default class ProfileView extends React.Component {
                             <Card.Title className="movie-title">
                               {movie.Title}
                             </Card.Title>
-                            <Button value={movie._id} onClick={(e) => this.onRemoveFavorite(e, movie)}>Remove from List</Button>
+                            <Button value={movies._id} onClick={(e) => this.onRemoveFavorite(e, movie)}>Remove from List</Button>
                           </Card.Body>
                         </Card>
                       );
