@@ -14,39 +14,43 @@ export default function LoginView(props) {
     if (!username) {
       setUsernameErr('Username Required');
       isReq = false;
-    } else if (username.length < 2) {
-      setUsernameErr('Username must be 2 characters long');
+    } else if (username.length < 8) {
+      setUsernameErr('Username must be 8 characters long');
       isReq = false;
     }
     if (!password) {
       setPasswordErr('Password Required');
       isReq = false;
-    } else if (password.length < 6) {
-      setPassword('Password must be 6 characters long');
+    } else if (password.length < 8) {
+      setPassword('Password must be 8 characters long');
       isReq = false;
     }
 
     return isReq;
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("https://quiet-savannah-08380.herokuapp.com/login", {
+    // props.onLoggedIn(username);
+    const isReq = validate();
+    console.log(isReq)
+    if (isReq) {
+      axios.post('https://quiet-savannah-08380.herokuapp.com/login', {
         Username: username,
-        Password: password,
+        Password: password
       })
-      .then((response) => {
-        if (response.status == 200) {
-          localStorage.setItem("token", response.data.token);
-          props.onLoggedIn(response.data);
-        } else if (response.status == 400) {
-          // wrong password or username
-        } else {
-          // a different status code was sent
-        }
-      });
-  };
+        .then(response => {
+          const data = response.data;
+          props.onLoggedIn(data);
+        })
+        .catch(e => {
+          console.log('No such user')
+        });
+    };
+
+  }
+
   return (
     <Form>
       <Form.Group controlId="formUsername">
