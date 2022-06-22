@@ -103,7 +103,7 @@ class MainView extends React.Component {
           </Navbar.Brand>
           {user && (
             <Navbar.Collapse className="justify-content-end">
-              <Link to={`/users/${user}`} className="mr-2">
+              <Link to={`/users/${this.state.user}`} className="mr-2">
                 <br></br><br></br>
                 <Button variant="light" style={{ color: "white" }}>{user}'s Profile</Button>
               </Link>

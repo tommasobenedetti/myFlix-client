@@ -115,6 +115,8 @@ export default class ProfileView extends React.Component {
         alert("Profile deleted");
         localStorage.removeItem('user');
         localStorage.removeItem('token');
+        window.location.pathname = "/";
+
       })
       .catch(function (error) {
         console.log(error);
@@ -157,71 +159,61 @@ export default class ProfileView extends React.Component {
       <Container>
         <Row>
           <Col>
-            <Card>
+            <Card bg="secondary" text="light" border="light">
               <Card.Body>
-                <Card.Title>Profile</Card.Title>
-                <Form
-                  className="update-form"
-                  onSubmit={(e) =>
-                    this.editUser(
-                      e,
-                      this.Username,
-                      this.Password,
-                      this.Email,
-                      this.Birthday
-                    )
-                  }
-                >
-                  <FormGroup>
-                    <Form.Label>Username</Form.Label>
-                    <FormControl
-                      type="text"
-                      name="Username"
-                      placeholder="New Username"
-                      value={Username}
-                      onChange={(e) => this.setUsername(e.target.value)}
-                      required
-                    />
-                  </FormGroup>
 
-                  <FormGroup>
-                    <Form.Label>Password</Form.Label>
-                    <FormControl
-                      type="password"
-                      name="Password"
-                      placeholder="New Password"
-                      value=""
-                      onChange={(e) => this.setPassword(e.target.value)}
-                      required
-                    />
-                  </FormGroup>
 
-                  <FormGroup>
-                    <Form.Label>Email</Form.Label>
-                    <FormControl
-                      type="email"
-                      name="Email"
-                      placeholder="Enter Email"
-                      value={Email}
-                      onChange={(e) => this.setEmail(e.target.value)}
-                      required
-                    />
-                  </FormGroup>
+                <Card.Title className="text-center">About {this.state.Username}</Card.Title>
 
-                  <FormGroup>
-                    <Form.Label>Birthday</Form.Label>
-                    <FormControl
-                      type="date"
-                      name="Birthday"
-                      value={Birthday}
-                      onChange={(e) => this.setBirthdaye(e.target.value)}
-                      required
-                    />
-                  </FormGroup>
+
+                {this.state.Email && (
+                  <Card.Text><span className="profile_heading">Email: </span>{this.state.Email}</Card.Text>
+                )}
+
+                {this.state.Birthday && (
+                  <Card.Text><span className="profile_heading">Date of Birth: </span>{Intl.DateTimeFormat().format(new Date(this.state.Birthday))}</Card.Text>
+                )}
+
+              </Card.Body>
+            </Card>
+
+            <Card bg="secondary" text="light" border="light">
+              <Card.Body>
+                <Card.Title className="text-center">Update Profile Details</Card.Title>
+                <br></br>
+                <Form noValidate validated={this.state.validated}>
+
+                  <Form.Group controlId="updateFormUsername">
+                    <Form.Label>Username:</Form.Label>
+
+                    <Form.Control name="Username" type="text" onChange={this.handleFieldChange} required />
+
+                    <Form.Control.Feedback type="invalid">Please enter a username</Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group controlId="updateFormPassword">
+                    <Form.Label>Password:</Form.Label>
+                    <Form.Control name="Password" type="password" onChange={this.handleFieldChange} required />
+                    <Form.Control.Feedback type="invalid">Please enter a password</Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group controlId="updateFormEmail">
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control name="email" type="email" onChange={this.handleFieldChange} required />
+                    <Form.Control.Feedback type="invalid">Please enter a valid email address</Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group controlId="updateDateOfBirth">
+                    <Form.Label>Date of Birth:</Form.Label>
+                    <Form.Control name="Birthdate" type="date" onChange={this.handleFieldChange} />
+                  </Form.Group>
+
+                  <br></br>
                   <div>
                     <Button variant="success" type="submit" onClick={this.editUser}>Update Data</Button>
                     <Button variant="secondary" onClick={() => this.onDeleteUser()}>Delete Profile</Button>
                   </div>
+
                 </Form>
               </Card.Body>
             </Card>
@@ -230,8 +222,11 @@ export default class ProfileView extends React.Component {
 
         <Row>
           <Col>
-            <Card>
+            <Card bg="secondary" text="light" border="light" align="center" style={{ color: "white" }}>
+
               <Card.Body>
+                <Card.Title className="text-center"> Favorite Movies of {this.state.Username}
+                </Card.Title>
                 {FavoriteMovies.length === 0 && (
                   <div className="text-center">No favorite movies</div>
                 )}

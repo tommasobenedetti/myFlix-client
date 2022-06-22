@@ -60,7 +60,7 @@ export default function RegistrationView(props) {
                     const data = response.data;
                     console.log(data);
                     alert('Successful registration, please login');
-                    props.history.push('/');
+                    window.open('/', '_self');
 
                 })
                 .catch(response => {
