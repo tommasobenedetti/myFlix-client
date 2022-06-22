@@ -186,26 +186,26 @@ export default class ProfileView extends React.Component {
                   <Form.Group controlId="updateFormUsername">
                     <Form.Label>Username:</Form.Label>
 
-                    <Form.Control name="Username" type="text" onChange={this.handleFieldChange} required />
+                    <Form.Control name="Username" type="text" onChange={(e) => this.setUsername(e.target.value)} required />
 
                     <Form.Control.Feedback type="invalid">Please enter a username</Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group controlId="updateFormPassword">
                     <Form.Label>Password:</Form.Label>
-                    <Form.Control name="Password" type="password" onChange={this.handleFieldChange} required />
+                    <Form.Control name="Password" type="password" onChange={(e) => this.setPassword(e.target.value)} required />
                     <Form.Control.Feedback type="invalid">Please enter a password</Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group controlId="updateFormEmail">
                     <Form.Label>Email:</Form.Label>
-                    <Form.Control name="email" type="email" onChange={this.handleFieldChange} required />
+                    <Form.Control name="email" type="email" onChange={(e) => this.setEmail(e.target.value)} required />
                     <Form.Control.Feedback type="invalid">Please enter a valid email address</Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group controlId="updateDateOfBirth">
                     <Form.Label>Date of Birth:</Form.Label>
-                    <Form.Control name="Birthdate" type="date" onChange={this.handleFieldChange} />
+                    <Form.Control name="Birthdate" type="date" onChange={(e) => this.setBirthday(e.target.value)} />
                   </Form.Group>
 
                   <br></br>
