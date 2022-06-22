@@ -6,19 +6,22 @@ import { Link } from "react-router-dom";
 import FavoriteMovies from '../profile-view/favorite-movies';
 
 export default class MovieView extends React.Component {
-  keypressCallback(event) {
-    console.log(event.key);
+
+
+  addToFavoriteList(movies) {
+    const Username = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    axios.post(`https://https://quiet-savannah-08380.herokuapp.com/users/${Username}/ /${movies._id}`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then((response) => {
+        console.log(response.data)
+        alert(`The movie was successfully add to your list.`)
+      }).
+      catch(error => console.error(error))
   }
-
-  componentDidMount() {
-    document.addEventListener("keypress", this.keypressCallback);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("keypress", this.keypressCallback);
-  }
-
-
 
   render() {
     const { movie, onBackClick } = this.props;
@@ -64,7 +67,7 @@ export default class MovieView extends React.Component {
               </div>
               <br></br>
 
-
+              <Button variant="outline-dark" onClick={() => this.addToFavoriteList(movie._id)}>Add to Favorites</Button>
               <Button variant="outline-dark" onClick={() => onBackClick(null)}>Back</Button>
               <br></br>  <br></br> <br></br>  <br></br>
             </Card>
