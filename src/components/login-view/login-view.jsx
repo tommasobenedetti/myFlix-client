@@ -5,24 +5,31 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default function LoginView(props) {
-  const [Username, setUsername] = useState("");
-  const [Password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+
+  // Declare hook for each input
+  const [usernameErr, setUsernameErr] = useState('');
+  const [passwordErr, setPasswordErr] = useState('');
+
+
 
   // validate user inputs
   const validate = () => {
     let isReq = true;
-    if (!Username) {
+    if (!username) {
       setUsernameErr('Username Required');
       isReq = false;
-    } else if (Username.length < 8) {
+    } else if (username.length < 8) {
       setUsernameErr('Username must be 8 characters long');
       isReq = false;
     }
-    if (!Password) {
+    if (!password) {
       setPasswordErr('Password Required');
       isReq = false;
-    } else if (Password.length < 8) {
-      setPassword('Password must be 8 characters long');
+    } else if (password.length < 8) {
+      setPasswordErr('Password must be 8 characters long');
       isReq = false;
     }
 
@@ -37,8 +44,8 @@ export default function LoginView(props) {
     console.log(isReq)
     if (isReq) {
       axios.post('https://quiet-savannah-08380.herokuapp.com/login', {
-        Username: Username,
-        Password: Password
+        Username: username,
+        Password: password
       })
         .then(response => {
           const data = response.data;
@@ -57,11 +64,13 @@ export default function LoginView(props) {
         <br></br><br></br>
         <Form.Label className="loginForm">Username: </Form.Label>
         <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
+        {usernameErr && <p>{usernameErr}</p>}
       </Form.Group>
       <br></br>
       <Form.Group controlId="formPassword">
         <Form.Label className="loginForm">Password: </Form.Label>
         <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
+        {passwordErr && <p>{passwordErr}</p>}
       </Form.Group>
       <br></br>
       <Button variant="primary" type="submit" onClick={handleSubmit}>
