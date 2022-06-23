@@ -5,23 +5,23 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default function LoginView(props) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [Username, setUsername] = useState("");
+  const [Password, setPassword] = useState("");
 
   // validate user inputs
   const validate = () => {
     let isReq = true;
-    if (!username) {
+    if (!Username) {
       setUsernameErr('Username Required');
       isReq = false;
-    } else if (username.length < 8) {
+    } else if (Username.length < 8) {
       setUsernameErr('Username must be 8 characters long');
       isReq = false;
     }
-    if (!password) {
+    if (!Password) {
       setPasswordErr('Password Required');
       isReq = false;
-    } else if (password.length < 8) {
+    } else if (Password.length < 8) {
       setPassword('Password must be 8 characters long');
       isReq = false;
     }
@@ -37,8 +37,8 @@ export default function LoginView(props) {
     console.log(isReq)
     if (isReq) {
       axios.post('https://quiet-savannah-08380.herokuapp.com/login', {
-        Username: username,
-        Password: password
+        Username: Username,
+        Password: Password
       })
         .then(response => {
           const data = response.data;
@@ -82,8 +82,8 @@ export default function LoginView(props) {
 
 LoginView.propTypes = {
   user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
+    Username: PropTypes.string.isRequired,
+    Password: PropTypes.string.isRequired,
   }),
   onLoggedIn: PropTypes.func.isRequired,
 };
