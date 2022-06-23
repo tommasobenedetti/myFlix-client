@@ -1,13 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Container, Card, Button, Row, Col, Form } from "react-bootstrap";
 
-import { Container, Card, Button, Row, Col, Form, FormGroup, FormControl } from "react-bootstrap";
-import FavoriteMovies from './favorite-movies'
-import { MovieCard } from '../movie-card/movie-card';
-import UpdateUser from './update-user'
-import UserInfo from './user-info'
 
 
 
