@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import PropTypes from "prop-types";
-import { Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, CardGroup, Card } from 'react-bootstrap';
 
 export default function RegistrationView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
+
 
     const [usernameErr, setUsernameErr] = useState('');
     const [passwordErr, setPasswordErr] = useState('');
     const [emailErr, setEmailErr] = useState('');
+
 
     const validate = () => {
 
@@ -48,13 +50,15 @@ export default function RegistrationView(props) {
             axios.post('https://quiet-savannah-08380.herokuapp.com/users', {
                 Username: username,
                 Password: password,
-                Email: email
+                Email: email,
+                Birthday: birthday
+
             })
                 .then(response => {
                     const data = response.data;
                     console.log(data);
                     alert('Successful registration, please login');
-                    props.history.push('/');
+                    window.open('/', '_self');
 
                 })
                 .catch(response => {
@@ -93,7 +97,7 @@ export default function RegistrationView(props) {
                                                 onChange={e => setPassword(e.target.value)}
                                                 required
                                                 minLength="5"
-                                                placeholder="Your password must be at least 5 characters" />
+                                                placeholder="Your password must be at least 8 characters" />
                                             {passwordErr && <p>{passwordErr}</p>}
                                         </Form.Group>
                                         <Form.Group>
@@ -105,6 +109,15 @@ export default function RegistrationView(props) {
                                                 required
                                                 placeholder="Enter your email" />
                                             {emailErr && <p>{emailErr}</p>}
+                                        </Form.Group>
+                                        <Form.Group className="mb-3">
+                                            <Form.Label>Date of Birth:</Form.Label>
+                                            <Form.Control
+                                                type='date'
+                                                value={birthday}
+                                                onChange={e => setBirthday(e.target.value)}
+                                                placeholder="Enter your birthday"
+                                            />
                                         </Form.Group>
                                         <br></br>
                                         <Button variant="light" style={{ color: "white" }} type="submit"

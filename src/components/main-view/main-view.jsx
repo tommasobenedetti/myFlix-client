@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
@@ -11,15 +10,11 @@ import MoviesList from '../movies-list/movies-list';
 import LoginView from "../login-view/login-view";
 import MovieView from '../movie-view/movie-view';
 import ProfileView from '../profile-view/profile-view';
-import FavoriteMovies from '../profile-view/favorite-movies';
-import { UpdateUser } from '../profile-view/update-user';
-import { UserInfo } from '../profile-view/user-info';
 import GenreView from '../genre-view/genre-view';
 import DirectorView from '../director-view/director-view';
 import RegistrationView from '../registration-view/registration-view';
 import { Link } from 'react-router-dom';
 import { Navbar, Button, Col, Row } from 'react-bootstrap';
-
 
 class MainView extends React.Component {
 
@@ -85,10 +80,6 @@ class MainView extends React.Component {
     });
   }
 
-
-
-
-
   render() {
     let { movies } = this.props;
     let { user } = this.state;
@@ -103,7 +94,7 @@ class MainView extends React.Component {
           </Navbar.Brand>
           {user && (
             <Navbar.Collapse className="justify-content-end">
-              <Link to={`/users/${user}`} className="mr-2">
+              <Link to={`/users/${this.state.user}`} className="mr-2">
                 <br></br><br></br>
                 <Button variant="light" style={{ color: "white" }}>{user}'s Profile</Button>
               </Link>

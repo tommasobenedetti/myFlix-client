@@ -1,16 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Button, Card, Col, Form, Row, Container } from 'react-bootstrap';
-import FavoriteMovies from './favorite-movies'
-import { MovieCard } from '../movie-card/movie-card';
-import UpdateUser from './update-user'
-import UserInfo from './user-info'
-
-
-
-
+import { Container, Card, Button, Row, Col, Form } from "react-bootstrap";
 
 export default class ProfileView extends React.Component {
   constructor(props) {
@@ -75,7 +66,24 @@ export default class ProfileView extends React.Component {
 
         localStorage.setItem('user', this.state.Username);
         alert("Profile updated");
-        window.open('/profile', '_self');
+        window.open('/', '_self');
+      });
+  };
+
+  onRemoveFavorite = (e, movies) => {
+    e.preventDefault();
+    const Username = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+
+    axios.delete(`https://quiet-savannah-08380.herokuapp.com/users/${Username}/FavoriteMovies/${movies._id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
+      .then((response) => {
+        console.log(response);
+        alert("Movie removed");
+        this.componentDidMount();
       })
       .catch(function (error) {
         console.log(error);
@@ -93,10 +101,11 @@ export default class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => {
-        alert('Movie was removed')
-        window.location.reload();
-
-
+        console.log(response);
+        alert("Profile deleted");
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        window.location.pathname = "/";
 
       })
       .catch(function (error) {
@@ -141,85 +150,109 @@ export default class ProfileView extends React.Component {
 
 
     return (
-      <div className="profile_view">
-
-        <Button variant="secondary" onClick={this.closeModal}>
-          Cancel
-        </Button>
-        <br></br>
-        <Button variant="danger" onClick={this.deleteUserDetails}>
-          Delete Profile
-        </Button>
+      <Container>
+        <Row>
+          <Col>
+            <Card bg="secondary" text="light" border="light">
+              <Card.Body>
 
 
-        <Card bg="secondary" text="light" border="light">
-          <Card.Body>
+                <Card.Title className="text-center">About {this.state.Username}</Card.Title>
 
 
-            <Card.Title className="text-center">Profile of {this.state.userDetails.Username}</Card.Title>
-            <Card.Text><span className="profile_heading"></span>{this.state.userDetails.Username}</Card.Text>
+                {this.state.Email && (
+                  <Card.Text><span className="profile_heading">Email: </span>{this.state.Email}</Card.Text>
+                )}
 
-            {this.state.userDetails.Birthdate && (
-              <Card.Text><span className="profile_heading">Date of Birth: </span>{Intl.DateTimeFormat().format(new Date(this.state.userDetails.Birthday))}</Card.Text>
-            )}
-          </Card.Body>
-        </Card>
+                {this.state.Birthday && (
+                  <Card.Text><span className="profile_heading">Date of Birth: </span>{Intl.DateTimeFormat().format(new Date(this.state.Birthday))}</Card.Text>
+                )}
 
-        <Card bg="secondary" text="light" border="light">
-          <Card.Body>
-            <Card.Title className="text-center">Update Profile Details</Card.Title>
-            <br></br>
-            <Form noValidate validated={this.state.validated}>
+              </Card.Body>
+            </Card>
 
-              <Form.Group controlId="updateFormUsername">
-                <Form.Label>Username:</Form.Label>
+            <Card bg="secondary" text="light" border="light">
+              <Card.Body>
+                <Card.Title className="text-center">Update Profile Details</Card.Title>
+                <br></br>
+                <Form noValidate validated={this.state.validated}>
 
-                <Form.Control name="Username" type="text" onChange={this.handleFieldChange} required />
+                  <Form.Group controlId="updateFormUsername">
+                    <Form.Label>Username:</Form.Label>
 
-                <Form.Control.Feedback type="invalid">Please enter a username</Form.Control.Feedback>
-              </Form.Group>
+                    <Form.Control name="Username" type="text" onChange={(e) => this.setUsername(e.target.value)} required />
 
-              <Form.Group controlId="updateFormPassword">
-                <Form.Label>Password:</Form.Label>
-                <Form.Control name="Password" type="password" onChange={this.handleFieldChange} required />
-                <Form.Control.Feedback type="invalid">Please enter a password</Form.Control.Feedback>
-              </Form.Group>
+                    <Form.Control.Feedback type="invalid">Please enter a username</Form.Control.Feedback>
+                  </Form.Group>
 
-              <Form.Group controlId="updateFormEmail">
-                <Form.Label>Email:</Form.Label>
-                <Form.Control name="email" type="email" onChange={this.handleFieldChange} required />
-                <Form.Control.Feedback type="invalid">Please enter a valid email address</Form.Control.Feedback>
-              </Form.Group>
+                  <Form.Group controlId="updateFormPassword">
+                    <Form.Label>Password:</Form.Label>
+                    <Form.Control name="Password" type="password" onChange={(e) => this.setPassword(e.target.value)} required />
+                    <Form.Control.Feedback type="invalid">Please enter a password</Form.Control.Feedback>
+                  </Form.Group>
 
-              <Form.Group controlId="updateDateOfBirth">
-                <Form.Label>Date of Birth:</Form.Label>
-                <Form.Control name="Birthdate" type="date" onChange={this.handleFieldChange} />
-              </Form.Group>
+                  <Form.Group controlId="updateFormEmail">
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control name="email" type="email" onChange={(e) => this.setEmail(e.target.value)} required />
+                    <Form.Control.Feedback type="invalid">Please enter a valid email address</Form.Control.Feedback>
+                  </Form.Group>
 
-              <br></br>
-              <Button variant="light" style={{ color: "white" }} type="submit" onClick={this.updateUserDetails}>
-                Update Details
-              </Button>
+                  <Form.Group controlId="updateDateOfBirth">
+                    <Form.Label>Date of Birth:</Form.Label>
+                    <Form.Control name="Birthdate" type="date" onChange={(e) => this.setBirthday(e.target.value)} />
+                  </Form.Group>
 
-              <Button onClick={() => onBackClick(null)} variant="light" style={{ color: "white" }}>Back</Button>
+                  <br></br>
+                  <div>
+                    <Button variant="success" type="submit" onClick={this.editUser}>Update Data</Button>
+                    <Button variant="secondary" onClick={() => this.onDeleteUser()}>Delete Profile</Button>
+                  </div>
 
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
 
-            </Form>
-          </Card.Body>
-        </Card>
+        <Row>
+          <Col>
+            <Card bg="secondary" text="light" border="light" align="center" style={{ color: "white" }}>
 
-        <Card bg="secondary" text="light" border="light" align="center" style={{ color: "white" }}>
-          <Card.Title>{this.state.userDetails.username}'s Favorites:</Card.Title>
-          <Row>
-
-            {FavoriteMoviesArray.map(movie => (
-              <Col md={4} key={movie._id} className="my-2">
-                <MovieCard movie={movie} />
-              </Col>))}
-          </Row>
-        </Card>
-      </div>
-    );
+              <Card.Body>
+                <Card.Title className="text-center"> Favorite Movies of {this.state.Username}
+                </Card.Title>
+                {FavoriteMovies.length === 0 && (
+                  <div className="text-center">No favorite movies</div>
+                )}
+                <Row className="favorite-movies-container">
+                  {FavoriteMovies.length > 0 && movies.map((movie) => {
+                    if (movie._id === FavoriteMovies.find((fav) => fav === movie._id)
+                    ) {
+                      return (
+                        <Card className="favorite-movie" key={movie._id} >
+                          <Card.Img
+                            className="favorite-movie-image"
+                            variant="top"
+                            src={movie.ImagePath}
+                          />
+                          <Card.Body>
+                            <Card.Title className="movie-title">
+                              {movie.Title}
+                            </Card.Title>
+                            <Button value={movies._id} onClick={(e) => this.onRemoveFavorite(e, movie)}>Remove from List</Button>
+                          </Card.Body>
+                        </Card>
+                      );
+                    }
+                  })}
+                </Row>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Button onClick={() => onBackClick(null)} variant="light" style={{ color: "white" }}>Back</Button>
+        </Row>
+      </Container>
+    )
   }
 }
 
