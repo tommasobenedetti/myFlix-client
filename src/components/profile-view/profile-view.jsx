@@ -23,30 +23,7 @@ export default class ProfileView extends React.Component {
 
   }
 
-  componentDidMount() {
-    const accessToken = localStorage.getItem('token');
-    this.getUser(accessToken);
-  }
 
-  getUser(token) {
-    const Username = localStorage.getItem('user');
-
-    axios.get(`https://quiet-savannah-08380.herokuapp.com/users/${Username}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(response => {
-        this.setState({
-          Username: response.data.Username,
-          Password: response.data.Password,
-          Email: response.data.Email,
-          Birthday: response.data.Birthday,
-          FavoriteMovies: response.data.FavoriteMovies
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
 
   editUser = (e) => {
     e.preventDefault();
@@ -74,7 +51,7 @@ export default class ProfileView extends React.Component {
 
         localStorage.setItem('user', this.state.Username);
         alert("Profile updated");
-        window.open('/profile', '_self');
+        window.open('/users', '_self');
       });
   };
 
@@ -143,12 +120,12 @@ export default class ProfileView extends React.Component {
   }
 
   render() {
-    const { movies, onBackClick } = this.props;
+    const { movies, user, onBackClick } = this.props;
     const { FavoriteMovies, Username, Email, Birthday } = this.state;
+    console.log(user)
 
-    if (!Username) {
-      return null;
-    }
+
+
 
     return (
       <Container>
@@ -158,16 +135,16 @@ export default class ProfileView extends React.Component {
               <Card.Body>
 
 
-                <Card.Title className="text-center">About {this.state.Username}</Card.Title>
+                <Card.Title className="text-center">About {user.Username}</Card.Title>
 
 
-                {this.state.Email && (
-                  <Card.Text><span className="profile_heading">Email: </span>{this.state.Email}</Card.Text>
-                )}
 
-                {this.state.Birthday && (
-                  <Card.Text><span className="profile_heading">Date of Birth: </span>{Intl.DateTimeFormat().format(new Date(this.state.Birthday))}</Card.Text>
-                )}
+                <Card.Text><span className="profile_heading">Email: </span>{user.Email}</Card.Text>
+
+
+
+                <Card.Text><span className="profile_heading">Date of Birth: </span>{Intl.DateTimeFormat().format(new Date(user.Birthday))}</Card.Text>
+
 
               </Card.Body>
             </Card>
@@ -220,14 +197,14 @@ export default class ProfileView extends React.Component {
             <Card bg="secondary" text="light" border="light" align="center" style={{ color: "white" }}>
 
               <Card.Body>
-                <Card.Title className="text-center"> Favorite Movies of {this.state.Username}
+                <Card.Title className="text-center"> Favorite Movies of {user.Username}
                 </Card.Title>
-                {FavoriteMovies.length === 0 && (
+                {user.FavoriteMovies.length === 0 && (
                   <div className="text-center">No favorite movies</div>
                 )}
                 <Row className="favorite-movies-container">
-                  {FavoriteMovies.length > 0 && movies.map((movie) => {
-                    if (movie._id === FavoriteMovies.find((fav) => fav === movie._id)
+                  {user.FavoriteMovies.length > 0 && movies.map((movie) => {
+                    if (movie._id === user.FavoriteMovies.find((fav) => fav === movie._id)
                     ) {
                       return (
                         <Card className="favorite-movie" key={movie._id} >
