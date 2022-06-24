@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import PropTypes from "prop-types";
-import { Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, CardGroup, Card } from 'react-bootstrap';
 
 export default function RegistrationView(props) {
@@ -14,7 +13,6 @@ export default function RegistrationView(props) {
     const [usernameErr, setUsernameErr] = useState('');
     const [passwordErr, setPasswordErr] = useState('');
     const [emailErr, setEmailErr] = useState('');
-    const [birthdayErr, setBirthdayErr] = useState('');
 
 
     const validate = () => {

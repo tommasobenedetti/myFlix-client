@@ -1,12 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import PropTypes from "prop-types";
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import { Link } from "react-router-dom";
-import FavoriteMovies from '../profile-view/favorite-movies';
 
 export default class MovieView extends React.Component {
-
 
   addToFavoriteList(movieId) {
     const Username = localStorage.getItem('user');

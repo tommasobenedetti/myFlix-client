@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { Button, Container, Card } from 'react-bootstrap';
 
 
@@ -25,8 +23,6 @@ export default function DirectorView(props) {
             <span className="label">Birthday: </span>
             <span className="value">{director.Birth}</span>
           </Card.Text>
-
-
 
           <Button variant="outline-dark" onClick={() => onBackClick(null)}>Back</Button>
         </Card.Body>
