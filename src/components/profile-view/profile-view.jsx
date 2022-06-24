@@ -23,9 +23,9 @@ export default class ProfileView extends React.Component {
     this.getUser(accessToken);
   }
 
-  getUser(token) {
-    const Username = localStorage.getItem('user');
-
+  getUser() {
+    const Username = this.props.user
+    const token = this.props.token
     axios.get(`https://quiet-savannah-08380.herokuapp.com/users/${Username}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
