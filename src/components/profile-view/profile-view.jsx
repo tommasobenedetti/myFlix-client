@@ -69,7 +69,7 @@ export default class ProfileView extends React.Component {
 
         localStorage.setItem('user', this.state.Username);
         alert("Profile updated");
-        window.open('/profile', '_self');
+        window.open('/', '_self');
       });
   };
 
