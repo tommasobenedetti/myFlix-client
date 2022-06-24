@@ -28,7 +28,6 @@ class MainView extends React.Component {
 
     this.state = {
       user: null
-
     };
   }
 
@@ -68,7 +67,7 @@ class MainView extends React.Component {
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
-      user: authData.user
+      user: authData.user.Username
     })
 
 
@@ -104,9 +103,9 @@ class MainView extends React.Component {
           </Navbar.Brand>
           {user && (
             <Navbar.Collapse className="justify-content-end">
-              <Link to={`/users/${this.state.user.Username}`} className="mr-2">
+              <Link to={`/users/${this.state.user}`} className="mr-2">
                 <br></br><br></br>
-                <Button variant="light" style={{ color: "white" }}>{this.state.user.Username}'s Profile</Button>
+                <Button variant="light" style={{ color: "white" }}>{user}'s Profile</Button>
               </Link>
               <br></br>
               <Button className="logout" onClick={() => this.onLoggedOut()} variant="light" style={{ color: "white" }}>Logout</Button>
@@ -143,6 +142,22 @@ class MainView extends React.Component {
               <RegistrationView />
             </Col>
             )
+          }} />
+
+          <Route path="/profile" render={({ history }) => {
+            if (!user) {
+              return (
+                <Col>
+                  <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                </Col>
+              );
+            }
+
+            return (
+              <Col md={8}>
+                <ProfileView movies={movies} onBackClick={() => history.goBack()} />
+              </Col>
+            );
           }} />
 
           <Route path="/users" render={({ history }) => {
