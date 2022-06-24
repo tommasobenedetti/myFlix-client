@@ -22,8 +22,7 @@ class MainView extends React.Component {
     super();
 
     this.state = {
-      user: null,
-      token: null
+      user: null
     };
   }
 
@@ -63,8 +62,7 @@ class MainView extends React.Component {
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
-      user: authData.user.Username,
-      token: authData.token
+      user: authData.user.Username
     })
 
 
@@ -166,7 +164,6 @@ class MainView extends React.Component {
               <Col>
                 <ProfileView
                   user={this.state.user}
-                  token={this.state.token}
                   movies={movies}
                   onBackClick={() => history.goBack()} />
               </Col>
