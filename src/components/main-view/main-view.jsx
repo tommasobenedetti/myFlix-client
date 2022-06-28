@@ -78,7 +78,11 @@ class MainView extends React.Component {
     this.setState({
       user: null
     });
+    window.location.href = '/'
+
   }
+
+
 
   render() {
     let { movies } = this.props;
@@ -135,23 +139,7 @@ class MainView extends React.Component {
             )
           }} />
 
-          <Route path="/profile" render={({ history }) => {
-            if (!user) {
-              return (
-                <Col>
-                  <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-                </Col>
-              );
-            }
-
-            return (
-              <Col md={8}>
-                <ProfileView movies={movies} onBackClick={() => history.goBack()} />
-              </Col>
-            );
-          }} />
-
-          <Route path="/users" render={({ history }) => {
+          <Route path="/users/:Username" render={({ history }) => {
             if (!user)
               return (
                 <Col>
